@@ -1,0 +1,41 @@
+Binary Brains — Cough Detection at 750 Hz
+YŪGŌ Hackathon 2026 | SSN College of Engineering
+Overview
+This repository presents a software-only, offline cough detection system developed for Pack B – Cough Detection at 750 Hz in the YŪGŌ Hackathon 2026. The system processes pre-recorded 750 Hz mono WAV audio files and detects cough events using MFCC-based signal features and a gradient-boosted tree classifier (XGBoost). Outputs include structured JSON cough events, publication-quality plots, and an interactive Streamlit dashboard.
+⚠️ This tool is a research prototype and NOT a medical device.
+Novelty & Innovation
+Unlike the provided baseline model, which performs end-to-end inference on fixed representations, our approach introduces a segment-level, sliding-window detection framework that enables fine-grained temporal localization of cough events. By extracting statistically aggregated MFCC descriptors from short overlapping audio segments and classifying them using an optimized gradient-boosted ensemble, the system achieves improved discrimination while retaining interpretability and computational efficiency. The pipeline further introduces post-processing logic to aggregate segment-level predictions into clinically interpretable cough events with timestamps, confidence scores, and severity grading.
+Technical Approach
+1. Input: 750 Hz mono WAV files (offline)
+2. Segmentation: 0.5-second windows with 0.3-second overlap
+3. Feature Extraction: 13 MFCC coefficients (mean + std per segment)
+4. Model: XGBoost binary classifier
+5. Post-processing: Probability thresholding and temporal aggregation
+6. Outputs: JSON cough events, ROC curve, confusion matrix, spectrogram, probability timeline, Streamlit dashboard
+Results (Compared to Baseline)
+Baseline Accuracy: ~87%
+Our Accuracy: 91.67%
+Baseline AUC: ~0.91
+Our AUC: 0.957
+Publication-Quality Plots (300 DPI)
+The following plots are exported at 300 DPI (PNG):
+• ROC Curve
+• Confusion Matrix
+• Spectrogram
+• Probability Timeline
+How to Run (Offline Demo)
+python run_demo.py --offline
+Dataset Citation
+NCSU Robust-Cough Dataset (750 Hz subset), CC-BY 4.0 License.
+Sharma et al., Robust Cough Detection Using Audio Signals.
+https://datadryad.org/dataset/doi:10.5061/dryad.mkkwh717r
+Model Citation
+Chen, T. & Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining.
+Patent Language Stub
+The system describes a software-based method for detecting and temporally localizing cough events from low-frequency audio signals using short-duration overlapping segmentation, MFCC-based statistical feature extraction, and gradient-boosted ensemble classification. The method includes post-processing logic to aggregate segment-level predictions into clinically interpretable events with confidence and severity grading, enabling scalable, non-invasive respiratory monitoring.
+Disclaimer
+This tool is a hackathon prototype and is NOT a medical device. The outputs are estimates intended for research and demonstration only. Do not use this tool to diagnose, treat, cure, or prevent any disease. If you have symptoms or concerns, consult a qualified clinician.
+Team
+Binary Brains
+Akhshayaa S — SSN College of Engineering
+Parvathi PR — SSN College of Engineering
